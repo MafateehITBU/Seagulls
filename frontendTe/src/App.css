@@ -1,0 +1,38 @@
+.width-table-scroll {
+    width: 1240px;
+    transition-delay: 0;
+}
+
+.width-table-scroll-mneu-close {
+    width: 1440px;
+    transition: var(--transition);
+}
+
+.note-table-th {
+    width: 400px;
+}
+
+.Table-scroll {
+    overflow-x: scroll;
+}
+
+.Table-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.Table-scroll::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.Table-scroll::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.Table-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.icon-cursor {
+    cursor: pointer;
+}

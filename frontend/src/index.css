@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+:root {
+  --bgNav: black;
+  --bgSidebar: black;
+  --grayColorNav: #a7a8a9;
+  --transition: all .3s ease-in-out;
+  --boxShadow: 0px 6px 11px -3px rgba(0, 0, 0, 0.5);
+}

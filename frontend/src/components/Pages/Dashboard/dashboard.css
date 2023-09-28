@@ -1,0 +1,10 @@
+.style-dash {
+    width: 48%;
+    background-color: rgb(250, 250, 250);
+    border-radius: 16px;
+    height: 400px;
+}
+
+.canvas-chart {
+    height: 50%;
+}

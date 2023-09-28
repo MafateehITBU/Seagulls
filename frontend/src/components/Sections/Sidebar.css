@@ -1,0 +1,42 @@
+.toggles-menu {
+    transform: translateX(-200px);
+    transition: all 0.3s ease;
+}
+
+.open-menu {
+    transition: all 0.3s ease;
+    width: calc(100% - 200px);
+}
+
+.close-menu {
+    margin-left: -200px;
+    transition: all 0.3s ease;
+}
+
+.list-Sidebar {
+    list-style-type: none;
+}
+
+.list-show .color-title {
+    color: var(--grayColorNav);
+    text-decoration: none;
+    margin-top: 10px;
+    transition: var(--transition);
+}
+
+.list-show .color-list {
+    color: var(--grayColorNav);
+    text-decoration: none;
+    margin-top: 10px;
+    transition: var(--transition);
+}
+
+.list-show .collapse .color-list:hover,
+.list-show .color-title:hover {
+    color: white;
+    transition: var(--transition);
+}
+
+.list-show .rotate-icon {
+    transform: rotate(90deg);
+}
