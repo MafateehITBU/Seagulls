@@ -200,7 +200,13 @@ export function TableSort() {
                         <></>
                     )}
                 </td>
-                <td><a href={row.Croca.url} target='_blank'>Croca Image</a></td>
+                <td>
+                    {row.Croca.url === "" ? (
+                        <></>
+                    ) : (
+                        <a href={row.Croca.url} target='_blank'>Croca Image</a>
+                    )}
+                </td>
                 {row.requiredSpareParts == "Norequired" ? (
                     <td >No Required</td>
                 ) : (

@@ -10,13 +10,14 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
     const [assetName, setAssetName] = useState('')
     const [assetType, setAssetType] = useState('')
     const [assetSubType, setAssetSubType] = useState('')
-    const [spareparts, setSpareparts] = useState('')
+    const [sparePartsName, setsparePartsName] = useState('')
     const [picture, setPicture] = useState('')
     const [location, setLocation] = useState('')
     const [issue, setIssue] = useState('')
     const [name, setName] = useState([])
     const [errors, setErrors] = useState({});
     const [asset, setAsset] = useState([])
+    const [spareParts, setSpareParts] = useState([])
 
     const handleSubmit = (id) => {
         EditTicketAcce(id)
@@ -30,7 +31,7 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
             formData.append('assetName', assetName);
             formData.append('assetType', assetType);
             formData.append('assetSubType', assetSubType);
-            formData.append('spareparts', spareparts);
+            formData.append('spareparts', sparePartsName);
             formData.append('location', location);
             formData.append('issue', issue);
             formData.append('sparePartsImage', picture);
@@ -49,7 +50,7 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
             setAssetName('');
             setAssetType('');
             setAssetSubType('');
-            setSpareparts('');
+            setsparePartsName('');
             setLocation('');
             setIssue('');
 
@@ -80,9 +81,6 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
         }
     };
 
-
-
-
     const fetchTechnician = async () => {
         try {
             const response = await axios.get(`${request.defaults.baseURL}technician`)
@@ -102,14 +100,31 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
         }
     }
 
+    const fetchSpareParts = async () => {
+        try {
+            const response = await axios.get(`${request.defaults.baseURL}SpareParts`)
+            setSpareParts(response.data)
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         fetchTechnician()
         fetchAsset()
+        fetchSpareParts()
     }, [])
 
     const nameTechnician = name.map((name) => (
         <option key={name._id} value={name._id}>
             {name.username}
+        </option>
+    ));
+
+    const nameSpareParts = spareParts.map((spareParts) => (
+        <option key={spareParts._id} value={spareParts.partName}>
+            {spareParts.partName}
         </option>
     ));
 
@@ -140,13 +155,15 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
 
                             <div className="mb-3">
                                 <label htmlFor="formPriority" className="form-label">Assigned To</label>
-                                <select
-                                    className="form-select"
-                                    value={openedTo}
-                                    onChange={event => setOpenedTo(event.target.value)}>
-                                    <option value=" "> Choose Name</option>
-                                    {nameTechnician}
-                                </select>
+                                <Select
+                                    options={[
+                                        { value: "", label: 'For everyone' },
+                                        ...name.map(item => ({ value: item._id, label: item.username }))
+                                    ]}
+                                    onChange={selectedOption => {
+                                        setOpenedTo(selectedOption.value);
+                                    }}
+                                />
                             </div>
 
                             <div className="mb-3">
@@ -185,15 +202,14 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="formSpareparts" className="form-label">Spare parts</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="formSpareparts"
-                                    placeholder="Spare parts input placeholder"
-                                    value={spareparts}
-                                    onChange={event => setSpareparts(event.target.value)} />
-                                {errors.spareParts && <div className="text-danger">{errors.spareParts}</div>}
+                                <label htmlFor="formSpareparts" className="form-label">Spare parts Name</label>
+                                <Select
+                                    options={spareParts.map(item => ({ value: item.partName, label: item.partName }))}
+                                    onChange={selectedOption => {
+                                        setsparePartsName(selectedOption.value)
+                                    }}
+                                />
+                                {errors.sparePartsName && <div className="text-danger">{errors.sparePartsName}</div>}
                             </div>
 
                             <div className="mb-3">
@@ -235,7 +251,7 @@ export default function EditAccident({ adminInfo, editId, fetchData }) {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => handleSubmit(editId)}>Create Ticket</button>
+                        <button type="button" className="btn btn-primary" onClick={() => handleSubmit(editId)}>Create Ticket</button>
                     </div>
                 </div>
             </div>

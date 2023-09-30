@@ -69,15 +69,12 @@ export function TableSort({ setCountTicket, sortByMonth, setSortByMonth }) {
 
             let filteredData = response.data;
 
+
             if (sortByMonth) {
                 filteredData = filteredData.filter(item => {
                     const itemDate = new Date(item.date);
                     const targetDate = new Date(sortByMonth);
-
-                    return (
-                        itemDate.getMonth() === targetDate.getMonth()
-                    );
-
+                    return itemDate.getMonth() === targetDate.getMonth();
                 });
             }
 
@@ -91,12 +88,13 @@ export function TableSort({ setCountTicket, sortByMonth, setSortByMonth }) {
 
             setSortedData(filteredData);
             if (sortByMonth > 0) {
-                setCountTicket(filteredData.length)
+                setCountTicket(filteredData.length);
             }
         } catch (error) {
             console.error(error);
         }
     };
+
 
     useEffect(() => {
         fetchData();
@@ -142,6 +140,8 @@ export function TableSort({ setCountTicket, sortByMonth, setSortByMonth }) {
             setSecondSortOrder('asc');
         }
     };
+
+
 
     const sortedRecords = [...records];
     if (sortColumn) {
@@ -254,7 +254,7 @@ export function TableSort({ setCountTicket, sortByMonth, setSortByMonth }) {
                     </td>
                 </tr >
             ) : (
-                < tr >
+                <tr key={row._id}>
                     {/* <td><Link to={`/Profile/${row.id}`} target='_blank'> {row.technicianName} </Link></td> */}
                     <td> {row.openedBy}</td>
                     <td>{row.openedTo}</td>

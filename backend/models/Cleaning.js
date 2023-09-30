@@ -138,7 +138,7 @@ module.exports = { Cleaning, ValidateCreateCleaning }
 
 // const repeatedData = [];
 
-// for (let i = 0; i < 17; i++) {
+// for (let i = 0; i < 5; i++) {
 //     const newData = {
 //         openedBy: "specific",
 //         priority: `specific`,
@@ -148,7 +148,7 @@ module.exports = { Cleaning, ValidateCreateCleaning }
 //         assetSubType: `AST-${i + 1}`,
 //         location: `AST-${i + 1}`,
 //         note: "cleaing",
-//         date: `2023-12-${i + 1}`,
+//         date: `2023-8-${i + 1}`,
 //     };
 
 //     repeatedData.push(newData);

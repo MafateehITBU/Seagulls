@@ -61,7 +61,15 @@ export function TableSort() {
     const fetchData = async () => {
         try {
             const response = await axios.get(`${request.defaults.baseURL}Cleaning/showCollect`);
-            setSortedData(response.data);
+            let filteredData = response.data;
+
+            filteredData.sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return dateA - dateB;
+            });
+
+            setSortedData(filteredData);
         } catch (error) {
             console.error(error);
         }
@@ -134,6 +142,8 @@ export function TableSort() {
         });
     }
 
+    const currentDate = new Date();
+
     //View the data in addition to making all forms of the filter
     const filteredRows = sortedRecords.filter((row) =>
         Object.values(row).some((value) =>
@@ -143,35 +153,66 @@ export function TableSort() {
 
     const showTable = filteredRows.length > 0 ? (
         filteredRows.map((row) => (
-            <tr key={row._id}>
-                {/* <td><Link to={`/Profile/${row.id}`} target='_blank'> {row.technicianName} </Link></td> */}
-                {/* <td>{row.openedBy}</td> */}
-                {/* <td>{row.openedTo}</td> */}
-                <td>
-                    {
-                        row.priority === "High" ? (
-                            <span className="badge text-bg-danger fs-6 w-100">High</span>
-                        ) : row.priority === "Medium" ? (
-                            <span className="badge text-bg-secondary fs-6 w-100">Medium</span>
-                        ) : row.priority === "Low" ? (
-                            <span className="badge text-bg-primary fs-6 w-100">Low</span>
-                        ) : (
-                            <></>
-                        )
-                    }
-                </td>
-                <td>{row.assetName}</td>
-                <td>{row.assetType}</td>
-                <td>{row.assetSubType}</td>
-                <td>{row.location}</td>
-                <td className='note-table-td'>{row.note}</td>
-                <td>{row.date}</td>
-                <td>
-                    <button type="button" onClick={() => setIdTicket(row._id)} className="btn btn-success" data-bs-toggle="modal" data-bs-target="#CollectCleaning"  >
-                        Collect
-                    </button>
-                </td>
-            </tr >
+            currentDate > new Date(row.date) ? (
+                < tr key={row._id} className='alert alert-danger'>
+                    {/* <td><Link to={`/Profile/${row.id}`} target='_blank'> {row.technicianName} </Link></td> */}
+                    {/* <td>{row.openedBy}</td> */}
+                    {/* <td>{row.openedTo}</td> */}
+                    <td>
+                        {
+                            row.priority === "High" ? (
+                                <span className="badge text-bg-danger fs-6 w-100">High</span>
+                            ) : row.priority === "Medium" ? (
+                                <span className="badge text-bg-secondary fs-6 w-100">Medium</span>
+                            ) : row.priority === "Low" ? (
+                                <span className="badge text-bg-primary fs-6 w-100">Low</span>
+                            ) : (
+                                <></>
+                            )
+                        }
+                    </td>
+                    <td>{row.assetName}</td>
+                    <td>{row.assetType}</td>
+                    <td>{row.assetSubType}</td>
+                    <td>{row.location}</td>
+                    <td className='note-table-td'>{row.note}</td>
+                    <td>{row.date}</td>
+                    <td>
+                        <button type="button" onClick={() => setIdTicket(row._id)} className="btn btn-success" data-bs-toggle="modal" data-bs-target="#CollectCleaning"  >
+                            Collect
+                        </button>
+                    </td>
+                </tr >
+            ) : (
+                <tr key={row._id}>
+                    {/* <td><Link to={`/Profile/${row.id}`} target='_blank'> {row.technicianName} </Link></td> */}
+                    {/* <td>{row.openedBy}</td> */}
+                    {/* <td>{row.openedTo}</td> */}
+                    <td>
+                        {
+                            row.priority === "High" ? (
+                                <span className="badge text-bg-danger fs-6 w-100">High</span>
+                            ) : row.priority === "Medium" ? (
+                                <span className="badge text-bg-secondary fs-6 w-100">Medium</span>
+                            ) : row.priority === "Low" ? (
+                                <span className="badge text-bg-primary fs-6 w-100">Low</span>
+                            ) : (
+                                <></>
+                            )
+                        }
+                    </td>
+                    <td>{row.assetName}</td>
+                    <td>{row.assetType}</td>
+                    <td>{row.assetSubType}</td>
+                    <td>{row.location}</td>
+                    <td className='note-table-td'>{row.note}</td>
+                    <td>{row.date}</td>
+                    <td>
+                        <button type="button" onClick={() => setIdTicket(row._id)} className="btn btn-success" data-bs-toggle="modal" data-bs-target="#CollectCleaning"  >
+                            Collect
+                        </button>
+                    </td>
+                </tr >)
         ))
     ) : (
         <tr>

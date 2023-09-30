@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from 'react-toastify'
 import request from '../../utils/request'
+import Select from 'react-select';
+
 
 export default function EditSpareParts({ adminInfo, fetchData, editId }) {
     const [partNo, setPartNo] = useState('')
@@ -15,6 +17,7 @@ export default function EditSpareParts({ adminInfo, fetchData, editId }) {
     const [expiryData, setExpiryData] = useState('')
     const [leadTime, setLeadTime] = useState('')
     const [storageType, setStorageType] = useState('')
+    const [vendorfetch, setVendorfetch] = useState([]);
     const [errors, setErrors] = useState({});
 
     const isNumeric = (value) => {
@@ -104,6 +107,19 @@ export default function EditSpareParts({ adminInfo, fetchData, editId }) {
         }
     };
 
+    const fetchVendor = async () => {
+        try {
+            const response = await axios.get(`${request.defaults.baseURL}Vendor`);
+            setVendorfetch(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchVendor()
+    }, [])
+
     return (
         <div className="modal fade" id="EditSpareParts" tabIndex={-1} aria-labelledby="EditSparePartsLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -152,13 +168,11 @@ export default function EditSpareParts({ adminInfo, fetchData, editId }) {
 
                             <div className="mb-3">
                                 <label htmlFor="formvendor" className="form-label">Vendor</label>
-                                <select className="form-select" aria-label="Default select example"
-                                    onChange={event => setVendor(event.target.value)} >
-                                    <option value="">select menu</option>
-                                    <option value="Ali">Ali</option>
-                                    <option value="Ahmad">Ahmad</option>
-                                    <option value="Abd">Abd</option>
-                                </select>
+                                <Select
+                                    options={vendorfetch.map(item => ({ value: item.name, label: item.name }))}
+                                    onChange={selectedOption => {
+                                        setVendor(selectedOption.value);
+                                    }} />
                                 {errors.vendor && <div className="text-danger">{errors.vendor}</div>}
                             </div>
 

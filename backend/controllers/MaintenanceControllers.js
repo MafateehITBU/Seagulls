@@ -117,6 +117,7 @@ module.exports.UpdateTicketMaintenanceCtrl = asyncHandler(async (req, res) => {
         const result = await cloudinaryUploadImage(imagePath)
         maintenance.set({ 'sparePartsImage.url': result.secure_url });
         maintenance.set({ 'sparePartsImage.publicId': result.public_id });
+        fs.unlinkSync(imagePath);
     }
     if (req.body.openedTo) {
         const openedToId = req.body.openedTo.trim();
@@ -152,7 +153,7 @@ module.exports.UpdateTicketMaintenanceCtrl = asyncHandler(async (req, res) => {
         maintenance.assetSubType = req.body.assetSubType;
     }
     if (req.body.spareparts) {
-        maintenance.spareparts = req.body.spareparts;
+        maintenance.sparePartsName = req.body.spareparts;
     }
     if (req.body.location) {
         maintenance.location = req.body.location;

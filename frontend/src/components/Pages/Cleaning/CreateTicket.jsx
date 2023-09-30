@@ -16,7 +16,6 @@ export default function CreateCleaningTicket({ adminInfo, fetchData }) {
     const [note, setNote] = useState('')
     const [name, setName] = useState([])
     const [asset, setAsset] = useState([])
-
     const [errors, setErrors] = useState({});
 
     const handleSubmit = () => {
@@ -122,6 +121,8 @@ export default function CreateCleaningTicket({ adminInfo, fetchData }) {
         </option>
     ));
 
+
+
     return (
         <div className="modal fade" id="createCleaning" tabIndex={-1} aria-labelledby="createCleaningLabel" aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -149,26 +150,33 @@ export default function CreateCleaningTicket({ adminInfo, fetchData }) {
 
                             <div className="mb-3">
                                 <label htmlFor="formPriority" className="form-label">Assigned To</label>
-                                <select
-                                    className="form-select"
-                                    value={openedTo}
-                                    onChange={event => setOpenedTo(event.target.value)}>
-                                    <option value=" "> Choose Name</option>
-                                    {nameTechnician}
-                                </select>
+                                <Select
+                                    options={[
+                                        { value: "", label: 'For everyone' },
+                                        ...name.map(item => ({ value: item._id, label: item.username }))
+                                    ]}
+                                    onChange={selectedOption => {
+                                        setOpenedTo(selectedOption.value);
+                                    }}
+                                />
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="formAssetName" className="form-label">Asset Name</label>
                                 <Select
-                                    options={asset.map(item => ({ value: item._id, label: item.assetName, location: item.assetLocation }))}
+                                    options={asset.map(item => ({
+                                        value: item._id, label: item.assetName, location: item.assetLocation,
+                                        assetType: item.assetType, assetSubType: item.assetSubType
+                                    }))}
                                     onChange={selectedOption => {
                                         setAssetName(selectedOption.value);
                                         setLocation(selectedOption.location);
-                                    }} />
+                                        setAssetType(selectedOption.location);
+                                        setAssetSubType(selectedOption.location);
+                                    }}
+                                />
                                 {errors.assetName && <div className="text-danger">{errors.assetName}</div>}
                             </div>
-
 
                             <div className="mb-3">
                                 <label htmlFor="formAssetType" className="form-label">Asset Type</label>

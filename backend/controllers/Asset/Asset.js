@@ -89,6 +89,7 @@ module.exports.UpdateAssetCtrl = asyncHandler(async (req, res) => {
         const result = await cloudinaryUploadImage(imagePath)
         asset.set({ 'assetImage.url': result.secure_url });
         asset.set({ 'assetImage.publicId': result.public_id });
+        fs.unlinkSync(imagePath);
     }
 
     if (req.body.assetNo) {

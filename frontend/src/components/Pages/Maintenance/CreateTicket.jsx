@@ -21,7 +21,7 @@ export default function CreateTicket({ adminInfo, fetchData }) {
 
 
     const handleSubmit = () => {
-        if (!priority || !assetName || !assetType || !assetSubType || !sparePartsName || !location || !issue) {
+        if (!priority || !picture || !assetName || !assetType || !assetSubType || !sparePartsName || !location || !issue) {
             setErrors({
                 priority: !priority ? "Priority is required." : "",
                 assetName: !assetName ? "Asset Name is required." : "",
@@ -30,6 +30,7 @@ export default function CreateTicket({ adminInfo, fetchData }) {
                 sparePartsName: !sparePartsName ? "Spare Parts is required." : "",
                 location: !location ? "Location is required." : "",
                 issue: !issue ? "issue is required." : "",
+                picture: !picture ? "picture is required." : "",
             });
         } else {
             setErrors('')
@@ -110,7 +111,6 @@ export default function CreateTicket({ adminInfo, fetchData }) {
         }
     };
 
-
     const fetchTechnician = async () => {
         try {
             const response = await axios.get(`${request.defaults.baseURL}technician`)
@@ -152,7 +152,7 @@ export default function CreateTicket({ adminInfo, fetchData }) {
         </option>
     ));
 
-    const nameSpareParts = name.map((spareParts) => (
+    const nameSpareParts = spareParts.map((spareParts) => (
         <option key={spareParts._id} value={spareParts.partName}>
             {spareParts.partName}
         </option>
@@ -185,23 +185,31 @@ export default function CreateTicket({ adminInfo, fetchData }) {
 
                             <div className="mb-3">
                                 <label htmlFor="formPriority" className="form-label">Assigned To</label>
-                                <select
-                                    className="form-select"
-                                    value={openedTo}
-                                    onChange={event => setOpenedTo(event.target.value)}>
-                                    <option value=" "> Choose Name</option>
-                                    {nameTechnician}
-                                </select>
+                                <Select
+                                    options={[
+                                        { value: "", label: 'For everyone' },
+                                        ...name.map(item => ({ value: item._id, label: item.username }))
+                                    ]}
+                                    onChange={selectedOption => {
+                                        setOpenedTo(selectedOption.value);
+                                    }}
+                                />
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="formAssetName" className="form-label">Asset Name</label>
                                 <Select
-                                    options={asset.map(item => ({ value: item._id, label: item.assetName, location: item.assetLocation }))}
+                                    options={asset.map(item => ({
+                                        value: item._id, label: item.assetName, location: item.assetLocation,
+                                        assetType: item.assetType, assetSubType: item.assetSubType
+                                    }))}
                                     onChange={selectedOption => {
                                         setAssetName(selectedOption.value);
                                         setLocation(selectedOption.location);
-                                    }} />
+                                        setAssetType(selectedOption.location);
+                                        setAssetSubType(selectedOption.location);
+                                    }}
+                                />
                                 {errors.assetName && <div className="text-danger">{errors.assetName}</div>}
                             </div>
 
@@ -213,7 +221,7 @@ export default function CreateTicket({ adminInfo, fetchData }) {
                                     id="formAssetType"
                                     placeholder="Asset Type input placeholder"
                                     value={assetType}
-                                    onChange={event => setAssetType(event.target.value)} />
+                                />
                                 {errors.assetType && <div className="text-danger">{errors.assetType}</div>}
                             </div>
 
@@ -225,7 +233,7 @@ export default function CreateTicket({ adminInfo, fetchData }) {
                                     id="formAssetSubType"
                                     placeholder="Asset Sub Type input placeholder"
                                     value={assetSubType}
-                                    onChange={event => setAssetSubType(event.target.value)} />
+                                />
                                 {errors.assetSubType && <div className="text-danger">{errors.assetSubType}</div>}
                             </div>
 
@@ -249,6 +257,7 @@ export default function CreateTicket({ adminInfo, fetchData }) {
                                     placeholder="Picture input placeholder"
                                     onChange={event => setPicture(event.target.files[0])}
                                 />
+                                {errors.picture && <div className="text-danger">{errors.picture}</div>}
                             </div>
 
                             <div className="mb-3">

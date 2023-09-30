@@ -197,7 +197,7 @@ export function TableSortMaintenance() {
                     {row.approvedIT == "" ? (
                         <></>
                     ) : row.approvedIT == "approved" ? (
-                        <span className="badge bg-secondary fs-6">Approved</span>
+                        <span className="badge bg-success fs-6">Approved</span>
                     ) : row.approvedIT == "rejected" ? (
                         <span className="badge bg-danger fs-6">Rejected</span>
                     ) : (

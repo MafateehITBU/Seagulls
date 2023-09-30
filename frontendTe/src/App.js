@@ -23,6 +23,8 @@ function App() {
     try {
       const response = await axios.get(`${request.defaults.baseURL}technician/booking/${technicianInfo._id}`);
       setCountTask(countTask + response.data.length)
+      setDataAccident(countTask + response.data.length)
+
     } catch (error) {
       console.error(error);
     }
@@ -32,6 +34,7 @@ function App() {
     try {
       const response = await axios.get(`${request.defaults.baseURL}technician/maintenance-booking/${technicianInfo._id}`);
       setCountTask(countTask + response.data.length)
+      setDataMaintenance(countTask + response.data.length)
     } catch (error) {
       console.error(error);
     }
@@ -41,6 +44,8 @@ function App() {
     try {
       const response = await axios.get(`${request.defaults.baseURL}technician/cleaning-booking/${technicianInfo._id}`);
       setCountTask(countTask + response.data.length)
+      setDataCleaning(countTask + response.data.length)
+
     } catch (error) {
       console.error(error);
     }
@@ -51,8 +56,6 @@ function App() {
     fetchDataMaintenance();
     fetchDataCleaning();
   }, []);
-
-  console.log('')
 
   return (
     <>
@@ -69,7 +72,6 @@ function App() {
         theme="colored"
       />
 
-
       <BrowserRouter>
         {technicianInfo?.isTechnician && technicianInfo?.token && technicianInfo?.username && technicianInfo?.position ? (
           <>
@@ -79,7 +81,7 @@ function App() {
                 <div className="col py-3">
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/Collect" element={<TableCollect setCountTask={setCountTask} />} />
+                    <Route path="/Collect" element={<TableCollect />} />
                   </Routes>
                 </div>
               </div>
