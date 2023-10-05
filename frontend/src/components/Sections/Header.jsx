@@ -18,9 +18,9 @@ export default function Header({ toggleSidebar, setToggleSidebar }) {
 
   return (
     <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark z-3">
-      <Link className="navbar-brand ps-3" to="/">
+      <Link className="navbar-brand ps-3 fs-3 m-0 p-0 " to="/">
         {/* {adminInfo.username} */}
-        <img src={require('../../assets/Logo.png')} alt="Logo" height='30' />
+        Seagulls
       </Link>
       <button
         className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 desktop-btn"

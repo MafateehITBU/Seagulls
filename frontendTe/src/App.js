@@ -5,6 +5,7 @@ import Home from './components/Home/Home'
 import Header from './components/Home/Header'
 import Login from './components/Auth/Login'
 import TableCollect from './components/Collect/TableCollect'
+import Page404 from './components/PageError/Page404'
 import { TechnicianInfoContext } from './context/TechnicianInfoContext'
 import { useContext, useState, useEffect } from "react";
 import { ToastContainer } from 'react-toastify'
@@ -82,6 +83,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Collect" element={<TableCollect />} />
+                    <Route path="*" element={<Page404 />} />
                   </Routes>
                 </div>
               </div>
@@ -90,6 +92,7 @@ function App() {
         ) : (
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="*" element={<Login />} />
           </Routes>
         )
         }

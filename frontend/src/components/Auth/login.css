@@ -1,0 +1,8 @@
+.container .card .card-header .bg-card {
+    position: 'relative';
+    height: '300px'
+}
+
+.container .card .card-header .bg-card .card-img-top {
+    position: 'absolute';
+}

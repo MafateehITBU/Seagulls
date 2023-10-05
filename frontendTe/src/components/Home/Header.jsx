@@ -16,9 +16,9 @@ export default function Header({ countTask }) {
 
   return (
     <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark z-3">
-      <Link className="navbar-brand ps-3" to="/">
+      <Link className="navbar-brand ps-3 fs-3 m-0 p-0 " to="/">
         {/* {technicianInfo.username} */}
-        <img src={require('../../assets/Logo.png')} alt="Logo" height='30' />
+        Seagulls
       </Link>
       <div className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></div>
 
@@ -28,7 +28,6 @@ export default function Header({ countTask }) {
             <div type="button" className="position-relative" style={{ marginLeft: "-30px" }}>
               <i className="fa-solid fa-screwdriver-wrench text-white"></i>
               <span className="position-absolute badge rounded-pill bg-danger">
-                {countTask}
                 <span className="visually-hidden">unread messages</span>
               </span>
             </div>

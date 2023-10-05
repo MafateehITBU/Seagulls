@@ -44,7 +44,23 @@ export default function Login() {
             <div className="row justify-content-center">
                 <div className="col-lg-5">
                     <div className="card shadow-lg border-0 rounded-lg mt-5">
-                        <div className="card-header"><h3 className="text-center font-weight-light my-4">Login</h3></div>
+                        <div className="card-header p-0">
+                            <div className="bg-card" style={{ position: 'relative', height: '300px' }}>
+                                <img src={require('../../assets/Logo.jpg')} className='card-img-top' height='300px' style={{ position: 'absolute' }} />
+                                <div className="bg-card-logo">
+                                    <img src={require('../../assets/flawless-light.png')} className='card-img-top'
+                                        style={{
+                                            position: 'absolute',
+                                            width: '170px',
+                                            height: '80px',
+                                            top: '53%',
+                                            left: '50%',
+
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>
                                 <div className="form-floating mb-3">
@@ -72,7 +88,7 @@ export default function Login() {
                                     {passwordError && <div className="text-danger">{passwordError}</div>}
                                 </div>
                                 <div className="d-flex align-items-center justify-content-end mb-0">
-                                    <button type="submit" className="btn btn-primary">Login</button>
+                                    <button type="submit" className="btn btn-primary w-100 pt-2 pb-2">Login</button>
                                 </div>
                             </form>
                         </div>
